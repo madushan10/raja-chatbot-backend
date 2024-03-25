@@ -143,7 +143,7 @@ router.use(session({
 }));
 router.use(flash());
 router.get('/', (req, res) => {
-  res.render(__dirname+"views/index.ejs")
+  res.render(path.join(__dirname, '../views/index.ejs'));
 });
 router.post('/test-audio', (req, res) => {
   /**
