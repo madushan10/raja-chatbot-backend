@@ -3,6 +3,8 @@ const express = require("express");
 const { request } = require("express");
 const flash = require('connect-flash');
 const session = require('express-session');
+const MemoryStore = require('memorystore')(session)
+
 const cors = require("cors");
 const bodyParser = require('body-parser');
 const adminloggedin = require("../controllers/adminloggedin");
@@ -34,7 +36,14 @@ const { RunnableSequence } = require("@langchain/core/runnables");
 const { BaseMessage } = require("@langchain/core/messages");
 const { Pinecone } = require("@pinecone-database/pinecone");
 const { PineconeStore } = require('@langchain/pinecone');
-
+router.use(session({
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
+  resave: false,
+  secret: 'keyboard cat'
+}));
 require('dotenv').config();
 const Sequelize = require('sequelize');
 const { DateTime } = require('luxon');

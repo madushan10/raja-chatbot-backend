@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken")
 const router = express.Router();
 const flash = require('connect-flash');
 const session = require('express-session');
+const MemoryStore = require('memorystore')(session)
 const admin_add = require("./admin_add");
 const agent_add = require("./agent_add");
 const admin_login = require("./admin-login");
@@ -32,7 +33,14 @@ const live_chats_onload = require("./live_chats_onload");
 
 const update_gold_rates = require("./update_gold_rates");
 
-
+router.use(session({
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
+  resave: false,
+  secret: 'keyboard cat'
+}));
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
   host: process.env.DATABASE_HOST,
