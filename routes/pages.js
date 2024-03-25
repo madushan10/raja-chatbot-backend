@@ -207,6 +207,7 @@ router.post('/test-audio', (req, res) => {
 });
 router.get('/admin', (req, res) => {
  // res.render("admin-login.ejs")
+ console.log("admin dir",__dirname);
   res.render(path.join(__dirname, '../views/admin-login.ejs'));
 });
 router.get('/admin-dashboard', adminloggedin, (req, res) => {
