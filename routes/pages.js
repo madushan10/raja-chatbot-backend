@@ -4,7 +4,7 @@ const { request } = require("express");
 const flash = require('connect-flash');
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session)
-
+const path = require("path");
 const cors = require("cors");
 const bodyParser = require('body-parser');
 const adminloggedin = require("../controllers/adminloggedin");
@@ -143,7 +143,7 @@ router.use(session({
 }));
 router.use(flash());
 router.get('/', (req, res) => {
-  res.render("index.ejs")
+  res.render(__dirname + '/views/index.ejs')
 });
 router.post('/test-audio', (req, res) => {
   /**
