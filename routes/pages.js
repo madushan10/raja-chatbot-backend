@@ -9,7 +9,7 @@ const cors = require("cors");
 const bodyParser = require('body-parser');
 const adminloggedin = require("../controllers/adminloggedin");
 const agentloggedin = require("../controllers/agentloggedin");
-const router = express.Router();
+const router = express();
 router.use(urlencoded({ extended: true }));
 router.use(json());
 router.express('view engine', 'ejs');
