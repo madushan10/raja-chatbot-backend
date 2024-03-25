@@ -4,7 +4,7 @@ const { request } = require("express");
 const flash = require('connect-flash');
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session)
-const path = require("path");
+
 const cors = require("cors");
 const bodyParser = require('body-parser');
 const adminloggedin = require("../controllers/adminloggedin");
@@ -12,6 +12,8 @@ const agentloggedin = require("../controllers/agentloggedin");
 const router = express.Router();
 router.use(urlencoded({ extended: true }));
 router.use(json());
+router.set('view engine', 'ejs');
+
 const db = require("./db-config");
 const bcrypt = require("bcrypt");
 const { OpenAI } = require('@langchain/openai');
@@ -143,7 +145,7 @@ router.use(session({
 }));
 router.use(flash());
 router.get('/', (req, res) => {
-  res.render(__dirname + '/views/index.ejs')
+  res.render("index.ejs")
 });
 router.post('/test-audio', (req, res) => {
   /**

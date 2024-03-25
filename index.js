@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+router.set('view engine', 'ejs');
 db.connect((err) => {
     if (err) {
         console.log(err);
