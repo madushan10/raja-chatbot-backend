@@ -8,6 +8,6 @@ const sql = require("mysql");
 //     password: process.env.DATABASE_PASSWORD,
 //     database: process.env.DATABASE_NAME
 // })
-const db = mysql.createConnection(`mysql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:3306/${process.env.DATABASE_NAME}`);
+const db = sql.createConnection(`mysql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/${process.env.DATABASE_NAME}`);
 
 module.exports = db;
