@@ -206,11 +206,12 @@ router.post('/test-audio', (req, res) => {
   return res.json({ recognizeStream, response_data })
 });
 router.get('/admin', (req, res) => {
-  res.render("admin-login.ejs")
+ // res.render("admin-login.ejs")
+  res.render(path.join(__dirname, '../views/admin-login.ejs'));
 });
 router.get('/admin-dashboard', adminloggedin, (req, res) => {
   if (req.admin_login_details) {
-    res.render("admin-dashboard.ejs", { admin_login_details: req.admin_login_details })
+    res.render(path.join(__dirname, '../views/admin-dashboard.ejs'), { admin_login_details: req.admin_login_details })
   }
   else {
     res.redirect("/admin");
@@ -218,7 +219,7 @@ router.get('/admin-dashboard', adminloggedin, (req, res) => {
 });
 router.get('/add-admin', adminloggedin, (req, res) => {
   if (req.admin_login_details) {
-    res.render("add-admin.ejs", { admin_login_details: req.admin_login_details })
+    res.render(path.join(__dirname, '../views/add-admin.ejs'), { admin_login_details: req.admin_login_details })
   }
   else {
     res.redirect("/admin");
@@ -228,7 +229,7 @@ router.get('/manage-admins', adminloggedin, (req, res) => {
   if (req.admin_login_details) {
     db.query('SELECT * FROM other_admin_details', function (err, admins) {
       if (err) throw err;
-      res.render('manage-admins.ejs', { admins: admins, admin_login_details: req.admin_login_details });
+      res.render(path.join(__dirname, '../views/manage-admins.ejs'), { admins: admins, admin_login_details: req.admin_login_details });
     });
   }
   else {
@@ -242,7 +243,7 @@ router.get('/edit-admin/:id', adminloggedin, (req, res) => {
       if (err) throw err;
       db.query('SELECT * FROM users WHERE id = ' + $user_id + '', function (err2, login_details) {
         if (err2) throw err2;
-        res.render('edit-admin.ejs', { admin_details: admin_details[0], login_details: login_details[0], admin_login_details: req.admin_login_details });
+        res.render(path.join(__dirname, '../views/edit-admin.ejs'), { admin_details: admin_details[0], login_details: login_details[0], admin_login_details: req.admin_login_details });
       });
     });
   }
@@ -284,7 +285,7 @@ router.get('/add-agent', adminloggedin, (req, res) => {
   if (req.admin_login_details) {
     const successMessage = req.flash('success')[0];
     const errorMessage = req.flash('error')[0];
-    res.render("add-agent.ejs", { admin_login_details: req.admin_login_details, successMessage: successMessage, errorMessage: errorMessage })
+    res.render(path.join(__dirname, '../views/add-agent.ejs'), { admin_login_details: req.admin_login_details, successMessage: successMessage, errorMessage: errorMessage })
   }
   else {
     res.redirect("/admin");
@@ -294,7 +295,7 @@ router.get('/manage-agents', adminloggedin, (req, res) => {
   if (req.admin_login_details) {
     db.query('SELECT * FROM other_agent_details', function (err, agents) {
       if (err) throw err;
-      res.render('manage-agents.ejs', { agents: agents, admin_login_details: req.admin_login_details });
+      res.render(path.join(__dirname, '../views/manage-agents.ejs'), { agents: agents, admin_login_details: req.admin_login_details });
     });
   }
   else {
@@ -303,7 +304,7 @@ router.get('/manage-agents', adminloggedin, (req, res) => {
 });
 router.get('/live-chat-history', adminloggedin, (req, res) => {
   if (req.admin_login_details) {
-    res.render('live-chat-history.ejs', { admin_login_details: req.admin_login_details });
+    res.render(path.join(__dirname, '../views/live-chat-history.ejs'), { admin_login_details: req.admin_login_details });
   }
   else {
     res.redirect("/admin");
@@ -332,7 +333,7 @@ router.get('/view-agent-chats/:id', adminloggedin, async (req, res) => {
         agent: $agent_id
       }
     });
-    res.render('view-agent-chats.ejs', { agent: agent, admin_login_details: req.admin_login_details, chat_count: chat_count, timer: timer, chats: chats });
+    res.render(path.join(__dirname, '../views/view-agent-chats.ejs'), { agent: agent, admin_login_details: req.admin_login_details, chat_count: chat_count, timer: timer, chats: chats });
   }
   else {
     res.redirect("/admin");
@@ -354,7 +355,7 @@ router.get('/view-agent-feedbacks/:id', adminloggedin, async (req, res) => {
         }
       }
     });
-    res.render('view-agent-feedbacks.ejs', { agent: agent, admin_login_details: req.admin_login_details, chats: chats });
+    res.render(path.join(__dirname, '../views/view-agent-feedbacks.ejs'), { agent: agent, admin_login_details: req.admin_login_details, chats: chats });
   }
   else {
     res.redirect("/admin");
@@ -371,7 +372,7 @@ router.get('/edit-agent/:id', adminloggedin, (req, res) => {
         if (err2) throw err2;
         db.query('SELECT * FROM agent_languages WHERE user_id = ' + $user_id + '', function (err3, languages) {
           if (err3) throw err3;
-          res.render('edit-agent.ejs', { agent_details: agent_details[0], login_details: login_details[0], admin_login_details: req.admin_login_details, languages: languages, successMessage: successMessage, errorMessage: errorMessage });
+          res.render(path.join(__dirname, '../views/edit-agent.ejs'), { agent_details: agent_details[0], login_details: login_details[0], admin_login_details: req.admin_login_details, languages: languages, successMessage: successMessage, errorMessage: errorMessage });
         })
 
       });
@@ -418,7 +419,7 @@ router.get('/update-gold-rates', adminloggedin, async (req, res) => {
         id: 1
       }
     });
-    res.render('update-gold-rates.ejs', { rates: rates, admin_login_details: req.admin_login_details });
+    res.render(path.join(__dirname, '../views/update-gold-rates.ejs'), { rates: rates, admin_login_details: req.admin_login_details });
   }
   else {
     res.redirect("/admin");
@@ -426,11 +427,11 @@ router.get('/update-gold-rates', adminloggedin, async (req, res) => {
 });
 
 router.get('/agent', (req, res) => {
-  res.render("agent-login.ejs")
+  res.render(path.join(__dirname, '../views/agent-login.ejs'))
 });
 router.get('/agent-dashboard', agentloggedin, (req, res) => {
   if (req.agent_login_details) {
-    res.render("agent-dashboard.ejs", { agent_login_details: req.agent_login_details })
+    res.render(path.join(__dirname, '../views/agent-dashboard.ejs'), { agent_login_details: req.agent_login_details })
   }
   else {
     res.redirect("/agent");
@@ -443,7 +444,7 @@ router.get('/agent-profile/:id', agentloggedin, (req, res) => {
       if (err) throw err;
       db.query('SELECT * FROM users WHERE id = ' + $user_id + '', function (err2, login_details) {
         if (err2) throw err2;
-        res.render('agent-profile.ejs', { agent_details: agent_details[0], login_details: login_details[0], agent_login_details: req.agent_login_details });
+        res.render(path.join(__dirname, '../views/agent-profile.ejs'), { agent_details: agent_details[0], login_details: login_details[0], agent_login_details: req.agent_login_details });
       });
     });
   }
@@ -695,7 +696,7 @@ router.get('/conversation-history', adminloggedin, (req, res) => {
   if (req.admin_login_details) {
     db.query('SELECT DISTINCT message_id FROM chat_bot_chats', function (err, chats) {
       if (err) throw err;
-      res.render('conversation-history.ejs', { chats: chats, admin_login_details: req.admin_login_details });
+      res.render(path.join(__dirname, '../views/conversation-history.ejs'), { chats: chats, admin_login_details: req.admin_login_details });
     });
   }
   else {
@@ -807,7 +808,7 @@ router.get('/live-chats', agentloggedin, (req, res) => {
       if (err) throw err;
       db.query('SELECT * FROM agent_languages WHERE user_id = ?', [req.agent_login_details.id], function (err2, languages) {
         if (err2) throw err2;
-        res.render('live-chats.ejs', { chats: chats, agent_login_details: req.agent_login_details, languages: languages });
+        res.render(path.join(__dirname, '../views/live-chats.ejs'), { chats: chats, agent_login_details: req.agent_login_details, languages: languages });
       })
 
     });
@@ -1281,7 +1282,7 @@ router.post("/audio-chatGpt-response", async (req, res) => {
 })
 router.get('/video-chat-history', adminloggedin, (req, res) => {
   if (req.admin_login_details) {
-    res.render('video-chat-history.ejs', { admin_login_details: req.admin_login_details });
+    res.render(path.join(__dirname, '../views/video-chat-history.ejs'), { admin_login_details: req.admin_login_details });
   }
   else {
     res.redirect("/admin");
@@ -1289,7 +1290,7 @@ router.get('/video-chat-history', adminloggedin, (req, res) => {
 });
 router.get('/audio-chat-history', adminloggedin, (req, res) => {
   if (req.admin_login_details) {
-    res.render('audio-chat-history.ejs', { admin_login_details: req.admin_login_details });
+    res.render(path.join(__dirname, '../views/audio-chat-history.ejs'), { admin_login_details: req.admin_login_details });
   }
   else {
     res.redirect("/admin");
