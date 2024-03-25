@@ -1,0 +1,68 @@
+<%- include('layouts/header.ejs') %>
+<%- include('layouts/agent-nav.ejs') %>
+
+<div id="page_content">
+    <div id="page_content_inner">
+        <div class="md-card">
+            <div class="md-card-content">
+                <h3 class="heading_a">Edit Agent</h3>
+            <form onsubmit="return false;" id="form">
+                <div class="alert alert-success mt-2" role="alert" id="success" style="display: none;">
+                       
+                </div>
+                <div class="alert alert-danger mt-2" role="alert" id="failed" style="display: none;">
+                 
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-4 mb-5">
+                        <div class="">
+                            <label>Name</label>
+                            <input type="text" class="md-input label-fixed" id="agent_name" value="<%= agent_details.name %>" required/>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <div class="">
+                            <label>Phone Number</label>
+                            <input type="text" class="md-input label-fixed" id="phone" value="<%= agent_details.phone %>"  required/>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <div class="">
+                            <label>Email</label>
+                            <input type="email" class="md-input label-fixed" id="email" value="<%= login_details.email %>" required/>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <div class="">
+                            <label>Current Password</label>
+                            <input type="password" class="md-input label-fixed" id="current_password" />
+                        </div>
+                      
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <div class="">
+                            <label>New Password</label>
+                            <input type="password" class="md-input label-fixed" id="password" />
+                        </div>
+                        <p style="color:red;display: none;" id="password-error"></p>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <div class="">
+                            <label>Confirm Password</label>
+                            <input type="password" class="md-input label-fixed" id="confirm_password" />
+                        </div>
+                        <p style="color:red;display: none;" id="password-error"></p>
+                    </div>
+                    <input type="hidden" class="md-input label-fixed" id="user_id" value="<%= login_details.id %>"/>
+                    <div class="col-md-12">
+                        <button type="submit" class="md-btn md-btn-primary md-btn-wave-light waves-effect waves-button waves-light" >Save Agent</button>
+                    </div>
+                   
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../custom-js/agent-edit.js"></script>
+<%- include('layouts/footer.ejs') %>
