@@ -37,7 +37,7 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
   host: process.env.DATABASE_HOST,
   dialect: "mysql",
-  dialectModule: "mysql2"
+  dialectModule: require('mysql2'),
 });
 var Agents = sequelize.define('other_agent_details', {
   user_id :Sequelize.INTEGER,
