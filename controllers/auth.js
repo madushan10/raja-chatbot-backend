@@ -5,7 +5,7 @@ const dotenv = require("dotenv").config();
 const sql = require("mysql");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
-const router = express();
+const router = express.Router();
 const flash = require('connect-flash');
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session)
@@ -41,7 +41,7 @@ router.use(session({
   resave: false,
   secret: 'keyboard cat'
 }));
-express.set('view engine', 'ejs');
+
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
   host: process.env.DATABASE_HOST,

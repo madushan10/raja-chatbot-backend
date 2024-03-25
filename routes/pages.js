@@ -9,11 +9,9 @@ const cors = require("cors");
 const bodyParser = require('body-parser');
 const adminloggedin = require("../controllers/adminloggedin");
 const agentloggedin = require("../controllers/agentloggedin");
-const router = express();
+const router = express.Router();
 router.use(urlencoded({ extended: true }));
 router.use(json());
-router.express('view engine', 'ejs');
-
 const db = require("./db-config");
 const bcrypt = require("bcrypt");
 const { OpenAI } = require('@langchain/openai');
